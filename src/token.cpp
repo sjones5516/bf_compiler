@@ -3,37 +3,37 @@
 #include <cstddef>
 
 namespace bf {
-static Token MapChar(const char& token) {
+static TokenType MapChar(const char& token) {
   /*
    * Maps a character to the corresponding token enum.
    */
   switch (token) {
     case '>':
-      return Token::kIncrementDataPointer;
+      return TokenType::kIncrementDataPointer;
       break;
     case '<':
-      return Token::kDecrementDataPointer;
+      return TokenType::kDecrementDataPointer;
       break;
     case '+':
-      return Token::kIncrementByte;
+      return TokenType::kIncrementByte;
       break;
     case '-':
-      return Token::kDecrementByte;
+      return TokenType::kDecrementByte;
       break;
     case '.':
-      return Token::kOutputByte;
+      return TokenType::kOutputByte;
       break;
     case ',':
-      return Token::kAcceptByte;
+      return TokenType::kAcceptByte;
       break;
     case '[':
-      return Token::kStartLoop;
+      return TokenType::kStartLoop;
       break;
     case ']':
-      return Token::kEndLoop;
+      return TokenType::kEndLoop;
       break;
     default:
-      return Token::kComment;
+      return TokenType::kComment;
       break;
   }
 }
@@ -48,8 +48,8 @@ static Token MapChar(const char& token) {
 
   // Iterate over every character and map it to a token enum
   for (size_t i = 0; i < input_size; i++) {
-    Token mapped = MapChar(input[i]);
-    if (mapped != Token::kComment) output.push_back(mapped);
+    TokenType mapped = MapChar(input[i]);
+    if (mapped != TokenType::kComment) output.push_back(Token(mapped, i));
   }
 
   return output;
