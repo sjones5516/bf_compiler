@@ -1,0 +1,24 @@
+#+title Compiler Anatomy;
+#+author: Samuel Jones
+
+* Language Design
+- Operates on a 1D tape of 8-bit unsigned integer memory cells indexed from \( [0..\inf] \).
+- Contains instruction pointer starting at Memory[0].
+- Any characters not in the instruction table are ignored.
+** Instruction Table
+| Character | Instruction                                                                                |
+| >         | Increment the data pointer by 1.                                                           |
+| <         | Decrement the data pointer by 1.                                                           |
+| +         | Increment the byte at the data pointer by 1.                                               |
+| -         | Decrement the byte at the data pointer by 1.                                               |
+| .         | Output the byte at the data pointer.                                                       |
+| ,         | Accept one byte of input, storing its value in the byte at the data pointer                |
+| [         | If the byte at the data pointer is zero, jump forward to the command after the matching ]  |
+| ]         | If the byte at the data pointer is non-zero, jump back to the command after the matching [ |
+
+** Context Free Grammar
+\( S \rightarrow \mathit{Token}^{*} \)
+\(\mathit{Token} \rightarrow \mathit{Instruction} | \mathit{Loop} | \mathit{Comment} \)
+\(\mathit{Instruction} \rightarrow > | < | + | - | . | , | \)
+\( \mathit{Loop} \rightarrow [ \mathit{Token}^{*} ]\)
+\(\mathit{Comment} \rightarrow \text{Any character not in instruction table}\)
