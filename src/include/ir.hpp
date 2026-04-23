@@ -6,33 +6,36 @@
 #include "token.hpp"
 
 namespace bf {
-class Command {};
-class Parameterized {
- private:
-  int n_;
+enum class CommandType {
+  kIncPointer,
+  kDecPointer,
+  kIncByte,
+  kDecByte,
+  kOutput,
+  kAccept,
+  kJumpForward,
+  kJumpBackward
+};
 
- public:
-  explicit Parameterized(int n) : n_(n) {}
+class Command {
+ private:
+  int n_ = 0;
+  CommandType command_type_;
+
   [[nodiscard]] inline const int get_n(void) { return n_; }
   inline void set_n(int n) { n_ = n; }
-};
+  [[nodiscard]] inline const CommandType get_command_type(void) {
+    return command_type_;
+  }
+  inline void set_command_type(CommandType command_type) {
+    command_type_ = command_type;
+  }
 
-class IncPointer : public Command, public Parameterized {
-  using Parameterized::Parameterized;
+ public:
+  explicit Command(CommandType command_type) : command_type_(command_type) {}
+  explicit Command(CommandType command_type, int n)
+      : command_type_(command_type), n_(n) {}
 };
-class DecPointer : public Command, public Parameterized {
-  using Parameterized::Parameterized;
-};
-class IncByte : public Command, public Parameterized {
-  using Parameterized::Parameterized;
-};
-class DecByte : public Command, public Parameterized {
-  using Parameterized::Parameterized;
-};
-class Output : public Command {};
-class Accept : public Command {};
-class JumpForward : public Command {};
-class JumpBackward : public Command {};
 
 class Sequence {
  private:

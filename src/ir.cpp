@@ -11,28 +11,28 @@ namespace bf {
 static Command MapToken(Token token) {
   switch (token.get_type()) {
     case TokenType::kIncrementDataPointer:
-      return IncPointer(1);
+      return Command(CommandType::kIncPointer, 1);
       break;
     case TokenType::kDecrementDataPointer:
-      return DecPointer(1);
+      return Command(CommandType::kDecPointer, 1);
       break;
     case TokenType::kIncrementByte:
-      return IncByte(1);
+      return Command(CommandType::kIncByte, 1);
       break;
     case TokenType::kDecrementByte:
-      return DecByte(1);
+      return Command(CommandType::kDecByte, 1);
       break;
     case TokenType::kOutputByte:
-      return Output();
+      return Command(CommandType::kOutput);
       break;
     case TokenType::kAcceptByte:
-      return Accept();
+      return Command(CommandType::kAccept);
       break;
     case TokenType::kStartLoop:
-      return JumpForward();
+      return Command(CommandType::kJumpForward);
       break;
     case TokenType::kEndLoop:
-      return JumpBackward();
+      return Command(CommandType::kJumpBackward, 1);
       break;
     default:
       throw UnexpectedTokenError(std::to_string(token.get_index()));
