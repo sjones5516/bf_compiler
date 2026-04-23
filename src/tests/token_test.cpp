@@ -22,5 +22,5 @@ TEST(TokenTest, RemovesComments) {
   std::vector<Token> actual = TokenizeChars(input);
   EXPECT_EQ(actual.size(), 2);
   EXPECT_EQ(actual[0].get_type(), TokenType::kIncrementDataPointer);
-  EXPECT_EQ(actual[0].get_type(), TokenType::kDecrementDataPointer);
+  EXPECT_EQ(actual[1].get_type(), TokenType::kDecrementDataPointer);
 }
