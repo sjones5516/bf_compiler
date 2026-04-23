@@ -24,8 +24,10 @@ static Command MapToken(Token token) {
     case TokenType::kAcceptByte:
       return Command(CommandType::kAccept);
     case TokenType::kStartLoop:
+      // Label is defined later
       return Command(CommandType::kJumpForward);
     case TokenType::kEndLoop:
+      // Label is defined later
       return Command(CommandType::kJumpBackward, 1);
     default:
       throw UnexpectedTokenError(std::to_string(token.get_index()));
