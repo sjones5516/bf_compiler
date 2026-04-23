@@ -42,6 +42,10 @@ class Sequence {
 
  public:
   Sequence(const std::vector<Token>& tokens);
+  Sequence(const std::vector<char>& chars);
+  [[nodiscard]] inline const std::vector<Command> get_sequence(void) {
+    return sequence_;
+  }
 };
 
 }  // namespace bf

@@ -64,4 +64,8 @@ Sequence::Sequence(const std::vector<Token>& tokens) {
     throw UnmatchedBracketError(std::to_string(top_token_index));
   }
 }
+
+Sequence::Sequence(const std::vector<char>& chars)
+    : Sequence(TokenizeChars(chars)) {};
+
 }  // namespace bf
