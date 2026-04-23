@@ -13,31 +13,22 @@ static Command MapToken(Token token) {
   switch (token.get_type()) {
     case TokenType::kIncrementDataPointer:
       return Command(CommandType::kIncPointer, 1);
-      break;
     case TokenType::kDecrementDataPointer:
       return Command(CommandType::kDecPointer, 1);
-      break;
     case TokenType::kIncrementByte:
       return Command(CommandType::kIncByte, 1);
-      break;
     case TokenType::kDecrementByte:
       return Command(CommandType::kDecByte, 1);
-      break;
     case TokenType::kOutputByte:
       return Command(CommandType::kOutput);
-      break;
     case TokenType::kAcceptByte:
       return Command(CommandType::kAccept);
-      break;
     case TokenType::kStartLoop:
       return Command(CommandType::kJumpForward);
-      break;
     case TokenType::kEndLoop:
       return Command(CommandType::kJumpBackward, 1);
-      break;
     default:
       throw UnexpectedTokenError(std::to_string(token.get_index()));
-      break;
   }
 }
 
