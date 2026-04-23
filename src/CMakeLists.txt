@@ -1,4 +1,5 @@
 set(SOURCE_FILES
+  ir.cpp
   token.cpp
 )
 set(EXEC_SOURCE_FILES
