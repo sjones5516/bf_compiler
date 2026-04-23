@@ -1,0 +1,13 @@
+#+title Compiler Anatomy;
+#+author: Samuel Jones
+
+* Intermediate Representation
+| Character | Instruction                                                                                | IR Command    |
+| >         | Increment the data pointer by 1.                                                           | IncPointer(1) |
+| <         | Decrement the data pointer by 1.                                                           | DecPointer(1) |
+| +         | Increment the byte at the data pointer by 1.                                               | IncByte(1)    |
+| -         | Decrement the byte at the data pointer by 1.                                               | DecByte(1)    |
+| .         | Output the byte at the data pointer.                                                       | Output        |
+| ,         | Accept one byte of input, storing its value in the byte at the data pointer                | Accept        |
+| [         | If the byte at the data pointer is zero, jump forward to the command after the matching ]  | JumpForward   |
+| ]         | If the byte at the data pointer is non-zero, jump back to the command after the matching [ | JumpBackward  |
