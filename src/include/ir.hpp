@@ -42,7 +42,7 @@ class Sequence {
 
  public:
   Sequence(const std::vector<Token>& tokens);
-  Sequence(const std::vector<char>& chars);
+  Sequence(const std::vector<char>& chars) : Sequence(TokenizeChars(chars)) {};
   [[nodiscard]] inline const std::vector<Command> get_sequence(void) {
     return sequence_;
   }
