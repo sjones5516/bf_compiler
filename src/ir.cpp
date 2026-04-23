@@ -1,5 +1,6 @@
 #include "include/ir.hpp"
 
+#include <cstddef>
 #include <stack>
 #include <string>
 #include <vector>
@@ -40,27 +41,35 @@ static Command MapToken(Token token) {
   }
 }
 
-Sequence::Sequence(const std::vector<Token> tokens) {
-  std::stack<Token> token_stack;
+Sequence::Sequence(const std::vector<Token>& tokens) {
+  std::stack<std::pair<size_t, size_t>> token_stack;
+  size_t label_ct = 0;
+
   for (Token token : tokens) {
     // Iterate over every token and map to a command.
     // The only semantic analysis that needs to be done is ensure matching [ and
     Command command = MapToken(token);
-    sequence_.push_back(command);
 
-    if (token.get_type() == TokenType::kStartLoop) token_stack.push(token);
+    if (token.get_type() == TokenType::kStartLoop) {
+      token_stack.push({label_ct, token.get_index()});
+      command.set_n(label_ct++);
+    }
 
     if (token.get_type() == TokenType::kEndLoop) {
       if (token_stack.empty())
         throw UnmatchedBracketError(std::to_string(token.get_index()));
 
+      command.set_n(token_stack.top().first);
       token_stack.pop();
     }
+
+    sequence_.push_back(command);
   }
 
   if (!token_stack.empty()) {
-    Token unmatched = token_stack.top();
-    throw UnmatchedBracketError(std::to_string(unmatched.get_index()));
+    /// TODO add missing token index
+    size_t top_token_index = token_stack.top().second;
+    throw UnmatchedBracketError(std::to_string(top_token_index));
   }
 }
 }  // namespace bf
