@@ -60,7 +60,6 @@ Sequence::Sequence(const std::vector<Token>& tokens) {
   }
 
   if (!token_stack.empty()) {
-    /// TODO add missing token index
     size_t top_token_index = token_stack.top().second;
     throw UnmatchedBracketError(std::to_string(top_token_index));
   }
